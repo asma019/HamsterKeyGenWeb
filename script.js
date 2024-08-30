@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'Gangs Wars',
             appToken: 'b6de60a0-e030-48bb-a551-548372493523',
             promoId: 'c7821fa7-6632-482c-9635-2bd5798585f9',
-            timing: 40000, // 40 seconds
+            timing: 30000, // 40 seconds
             attempts: 30,
         }
     };
@@ -106,23 +106,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let selectedGame = null;
 
-    sourceCode.addEventListener('click', () => {
-        window.open('https://github.com/ShafiqSadat/HamsterKeyGenWeb', '_blank');
-    });
-    
-gameOptions.forEach(option => {
-    option.addEventListener('click', () => {
-        gameOptions.forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
-        selectedGame = option.dataset.game;
+    gameOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            gameOptions.forEach(opt => opt.classList.remove('selected'));
+            option.classList.add('selected');
+            selectedGame = option.dataset.game;
 
-        keyCountGroup.classList.remove('hidden');
-        startBtn.classList.remove('hidden');
-        
-        // Smooth scroll to the key count group
-        keyCountGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            keyCountGroup.classList.remove('hidden');
+            startBtn.classList.remove('hidden');
+        });
     });
-});
 
     keyRange.addEventListener('input', () => {
         keyValue.innerText = keyRange.value;
