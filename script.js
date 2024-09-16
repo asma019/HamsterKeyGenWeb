@@ -1,3 +1,46 @@
+function toggleTheme() {
+    const html = document.documentElement;
+    const themeIcon = document.getElementById('themeIcon');
+    
+    if (html.getAttribute('data-theme') === 'dark') {
+        html.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+    } else {
+        html.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+    }
+}
+
+function setTheme() {
+    const html = document.documentElement;
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+    } else if (savedTheme === 'light') {
+        html.removeAttribute('data-theme');
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        html.setAttribute('data-theme', 'dark');
+    }
+}
+
+// Call setTheme on page load
+// Call setTheme on page load
+document.addEventListener('DOMContentLoaded', () => {
+    setTheme();
+    const themeIcon = document.getElementById('themeIcon');
+    if (document.documentElement.getAttribute('data-theme') === 'dark') {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+    }
+});
+
+// Listen for changes in system color scheme
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setTheme);
+
 document.addEventListener('DOMContentLoaded', () => {
     const games = {
         1: {
@@ -18,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name: 'My Clone Army',
             appToken: '74ee0b5b-775e-4bee-974f-63e7f4d5bacb',
             promoId: 'fe693b26-b342-4159-8808-15e3ff7f8767',
-            timing: 20000, // 180 seconds
+            timing: 30000, // 180 seconds
             attempts: 30,
         },
         4: {
@@ -64,9 +107,9 @@ document.addEventListener('DOMContentLoaded', () => {
             attempts: 20,
         },
         10: {
-            name: 'Cafe Dash',
-            appToken: 'bc0971b8-04df-4e72-8a3e-ec4dc663cd11',
-            promoId: 'bc0971b8-04df-4e72-8a3e-ec4dc663cd11',
+            name: 'Tile Trio',
+            appToken: 'e68b39d2-4880-4a31-b3aa-0393e7df10c7',
+            promoId: 'e68b39d2-4880-4a31-b3aa-0393e7df10c7',
             timing: 20000, // 20 seconds
             attempts: 20,
         },
@@ -78,10 +121,31 @@ document.addEventListener('DOMContentLoaded', () => {
             attempts: 20,
         },
         12: {
-            name: 'Gangs Wars',
-            appToken: 'b6de60a0-e030-48bb-a551-548372493523',
-            promoId: 'c7821fa7-6632-482c-9635-2bd5798585f9',
-            timing: 30000, // 40 seconds
+            name: 'Fluff Crusade',
+            appToken: '112887b0-a8af-4eb2-ac63-d82df78283d9',
+            promoId: '112887b0-a8af-4eb2-ac63-d82df78283d9',
+            timing: 20000, // 20 seconds
+            attempts: 30,
+        },
+        13: {
+            name: 'Stone Age',
+            appToken: '04ebd6de-69b7-43d1-9c4b-04a6ca3305af',
+            promoId: '04ebd6de-69b7-43d1-9c4b-04a6ca3305af',
+            timing: 20000, // 20 seconds
+            attempts: 30,
+        },
+       14: {
+            name: 'Bouncemasters',
+            appToken: 'bc72d3b9-8e91-4884-9c33-f72482f0db37',
+            promoId: 'bc72d3b9-8e91-4884-9c33-f72482f0db37',
+            timing: 20000, // 20 seconds
+            attempts: 30,
+        },
+        15: {
+            name: 'Hide Ball',
+            appToken: '4bf4966c-4d22-439b-8ff2-dc5ebca1a600',
+            promoId: '4bf4966c-4d22-439b-8ff2-dc5ebca1a600',
+            timing: 30000, // 30 seconds
             attempts: 30,
         }
     };
@@ -106,14 +170,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let selectedGame = null;
 
+    sourceCode.addEventListener('click', () => {
+        window.open('https://github.com/ShafiqSadat/HamsterKeyGenWeb', '_blank');
+    });
+
     gameOptions.forEach(option => {
         option.addEventListener('click', () => {
             gameOptions.forEach(opt => opt.classList.remove('selected'));
             option.classList.add('selected');
             selectedGame = option.dataset.game;
-
+    
             keyCountGroup.classList.remove('hidden');
             startBtn.classList.remove('hidden');
+    
+            // Smooth scroll to the key count group
+            keyCountGroup.scrollIntoView({ behavior: 'smooth', block: 'center' });
         });
     });
 
